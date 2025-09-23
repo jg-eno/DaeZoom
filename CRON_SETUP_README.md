@@ -2,12 +2,14 @@
 
 This guide explains how to set up a cron job to automatically run your DaeZoom script every hour.
 
+**Note:** Replace `/path/to/your/DaeZoom` in the examples below with the actual path where you've installed the DaeZoom project on your system.
+
 ## Quick Setup (Recommended)
 
 Run the automated setup script:
 
 ```bash
-cd "/Users/user/Documents/Semester 5/DaeZoom"
+cd /path/to/your/DaeZoom
 ./setup_cron.sh
 ```
 
@@ -23,7 +25,7 @@ If you prefer to set up the cron job manually:
 
 ### 1. Open Terminal and navigate to your project directory:
 ```bash
-cd "/Users/user/Documents/Semester 5/DaeZoom"
+cd /path/to/your/DaeZoom
 ```
 
 ### 2. Make the wrapper script executable:
@@ -36,9 +38,9 @@ chmod +x run_daezoom.sh
 crontab -e
 ```
 
-### 4. Add this line to run every hour:
+### 4. Add this line to run every hour (replace with your actual path):
 ```
-0 * * * * /Users/user/Documents/Semester\ 5/DaeZoom/run_daezoom.sh
+0 * * * * /path/to/your/DaeZoom/run_daezoom.sh
 ```
 
 ### 5. Save and exit the editor (in vim: press Esc, then type `:wq` and press Enter)
