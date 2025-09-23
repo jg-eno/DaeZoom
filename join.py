@@ -1,6 +1,7 @@
 from datetime import datetime 
 import json
 from loguru import logger
+import webbrowser
 
 class DAEZoom:
     def __init__(self) -> None:
@@ -37,15 +38,21 @@ class DAEZoom:
         else: # handles ranges crossing midnight like 23:00-02:00
             return current >= start or current <= end
 
-    def get_current_class(self):
+    def get_current_class(self) -> str:
         self.get_current_time()
         day_schedule = self.schedule[self.day]
         for time_slot,room_no in day_schedule.items():
             if self.is_time_in_range(time_slot,self.time):
                 logger.info(f"Class Found : {room_no}")
-                break
-        else:
-            logger.info("Free Period !!! No classes scheduled")
+                return room_no
+        logger.info("Free Period !!! No classes scheduled")
+    
+    def join_class(self):
+        room_to_join = self.get_current_class()
+        if room_to_join:
+            joining_url = self.links[room_to_join]
+            webbrowser.open(joining_url)
+            logger.info("Successfully Joined the Class !!!")
 
 dz = DAEZoom()
-dz.get_current_class()
+dz.join_class()
