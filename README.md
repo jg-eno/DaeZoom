@@ -2,6 +2,22 @@
 
 A Python automation tool that automatically joins your online classes based on your timetable and room assignments.
 
+## Quick Start - Automated Execution (Recommended)
+
+Set up a cron job to automatically run the script every hour:
+
+```bash
+./setup_cron.sh
+```
+
+This will automatically:
+- Set up a cron job to run every hour
+- Handle virtual environment activation
+- Log all executions to daily log files
+- Provide error handling and reporting
+
+For detailed cron job setup instructions, troubleshooting, and management, see [CRON_SETUP_README.md](CRON_SETUP_README.md).
+
 ## Zoom Instructions (In Zoom Settings)
 
 Before using DaeZoom, configure your Zoom application with the following settings for optimal automated joining:
@@ -65,11 +81,13 @@ Maps classroom codes to their corresponding Zoom meeting links. This file secure
 
 **Security Note:** Keep this file secure and never commit actual authentication URLs to version control. Use placeholder URLs in examples and documentation.
 
-## Usage
+## Manual Execution
+
+For one-time or testing purposes:
 
 1. Configure your class schedule in `Schedule.json`
 2. Add your Zoom meeting links to `Links.json`
-3. Run the automation script to automatically join classes based on your timetable
+3. Run the automation script: `python join.py`
 
 ## Requirements
 
