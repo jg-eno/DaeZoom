@@ -2,6 +2,29 @@
 
 A Python automation tool that automatically joins your online classes based on your timetable and room assignments.
 
+## Zoom Instructions (In Zoom Settings)
+
+Before using DaeZoom, configure your Zoom application with the following settings for optimal automated joining:
+
+### Recommended Zoom Settings:
+
+1. **Disable "Always show preview before joining"**
+   - Go to Zoom Settings → General
+   - Uncheck "Always show preview before joining"
+   - This allows automatic joining without manual confirmation
+
+2. **Enable "Always mute while joining"**
+   - Go to Zoom Settings → Audio
+   - Check "Always mute my microphone when joining a meeting"
+   - Prevents accidental audio disruption when joining classes
+
+3. **Enable "Always turn off video while joining"**
+   - Go to Zoom Settings → Video
+   - Check "Always turn off my video when joining a meeting"
+   - Ensures privacy and prevents accidental video sharing
+
+These settings ensure that DaeZoom can join your classes automatically without requiring manual intervention or causing disruptions.
+
 ## Configuration Files
 
 ### Schedule.json
