@@ -18,6 +18,17 @@ This will automatically:
 
 For detailed cron job setup instructions, troubleshooting, and management, see [CRON_SETUP_README.md](CRON_SETUP_README.md).
 
+## macOS Setup
+
+To enable cron functionality on macOS, grant Full Disk Access permission:
+
+1. Open System Preferences from the  Apple menu, then choose "Security & Privacy"
+2. Go to the "Privacy" tab, then select "Full Disk Access" from the side menu options
+3. ⌘ + Shift + G (Go → Go to Folder) : To enter the location to go to
+4. Enter the path: `/usr/sbin/cron` and choose Go
+5. Drag and drop "cron" into the list of apps and processes with Full Disk Access permission, 'cron' should now appear in the list
+6. Close out of System Preferences and the open Finder sbin window when finished
+
 ## Zoom Instructions (In Zoom Settings)
 
 Before using DaeZoom, configure your Zoom application with the following settings for optimal automated joining:
