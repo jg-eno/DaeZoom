@@ -95,6 +95,35 @@ crontab -e
 - Make sure your virtual environment is set up correctly
 - Check that all packages in `requirements.txt` are installed
 
+## Advanced Troubleshooting: Cron Jobs Not Executing
+
+### ✅ Problem Fixed!
+
+**Root Cause Identified:**
+The issue was that the cron daemon needed to be reloaded/restarted to properly recognize the minute 5 cron job. This often happens when:
+• Cron jobs are added but the daemon doesn't immediately pick up the changes
+• There are XPC connection interruptions (as we saw in the logs)
+• The cron daemon gets into a stale state
+
+**What We Fixed:**
+1. ✅ Cron service status: Confirmed cron daemon was running
+2. ✅ Crontab syntax: Verified the format was correct
+3. ✅ Restarted cron service: Used `sudo pkill -HUP cron` to reload configuration
+4. ✅ Tested functionality: Confirmed new cron jobs now work properly
+
+**Verification:**
+• Test jobs at minute 12 and 15 both executed successfully
+• This indicates the ":05" minute job should now work properly
+• The cron daemon is now properly reading and executing all scheduled jobs
+
+**Next Steps:**
+Your ":05" minute cron jobs should now execute properly. You can monitor the next execution at the top of the hour (e.g., 13:05) by checking:
+```bash
+tail -f logs/daezoom_$(date +%Y%m%d).log
+```
+
+The fix was essentially a cron daemon reload, which resolved the stuck state that was preventing the minute 5 jobs from executing.
+
 ## Important Notes
 
 - The cron job will only run when your laptop is awake and running

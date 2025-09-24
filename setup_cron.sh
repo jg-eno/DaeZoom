@@ -21,11 +21,15 @@ if [ ! -x "$WRAPPER_SCRIPT" ]; then
     chmod +x "$WRAPPER_SCRIPT"
 fi
 
-# Create the cron job entry
-CRON_ENTRY="0 * * * * $WRAPPER_SCRIPT"
+# Create the cron job entries
+CRON_ENTRY_0="0 * * * * $WRAPPER_SCRIPT"
+CRON_ENTRY_5="5 * * * * $WRAPPER_SCRIPT"
 
-echo "Cron job entry: $CRON_ENTRY"
-echo "This will run every hour at minute 0 (e.g., 1:00, 2:00, 3:00, etc.)"
+echo "Cron job entries:"
+echo "  $CRON_ENTRY_0"
+echo "  $CRON_ENTRY_5"
+echo "This will run every hour at minute 0 and minute 5 (e.g., 1:00, 1:05, 2:00, 2:05, etc.)"
+echo "This ensures classes starting at :00 and :05 minutes are properly detected."
 
 # Check if cron job already exists
 if crontab -l 2>/dev/null | grep -q "$WRAPPER_SCRIPT"; then
@@ -45,22 +49,23 @@ if crontab -l 2>/dev/null | grep -q "$WRAPPER_SCRIPT"; then
     crontab -l 2>/dev/null | grep -v "$WRAPPER_SCRIPT" | crontab -
 fi
 
-# Add the new cron job
-echo "Adding new cron job..."
-(crontab -l 2>/dev/null; echo "$CRON_ENTRY") | crontab -
+# Add the new cron jobs
+echo "Adding new cron jobs..."
+(crontab -l 2>/dev/null; echo "$CRON_ENTRY_0"; echo "$CRON_ENTRY_5") | crontab -
 
 if [ $? -eq 0 ]; then
-    echo "✅ Cron job successfully added!"
+    echo "✅ Cron jobs successfully added!"
     echo ""
     echo "Current crontab entries:"
     crontab -l
     echo ""
-    echo "The DaeZoom script will now run every hour."
+    echo "The DaeZoom script will now run every hour at minute 0 and minute 5."
+    echo "This ensures classes starting at :00 and :05 minutes are properly detected."
     echo "Logs will be saved to: $SCRIPT_DIR/logs/"
     echo ""
     echo "To view logs: tail -f $SCRIPT_DIR/logs/daezoom_\$(date +%Y%m%d).log"
-    echo "To remove the cron job: crontab -e (then delete the line with run_daezoom.sh)"
+    echo "To remove the cron jobs: crontab -e (then delete the lines with run_daezoom.sh)"
 else
-    echo "❌ Failed to add cron job!"
+    echo "❌ Failed to add cron jobs!"
     exit 1
 fi
