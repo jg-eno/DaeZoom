@@ -124,6 +124,37 @@ tail -f logs/daezoom_$(date +%Y%m%d).log
 
 The fix was essentially a cron daemon reload, which resolved the stuck state that was preventing the minute 5 jobs from executing.
 
+## macOS Full Disk Access Setup
+
+To enable cron functionality on macOS, you need to grant Full Disk Access permission to the necessary system components.
+
+### Manual Steps for Full Disk Access:
+
+**Step 1: Open System Preferences**
+• Click the Apple menu → System Preferences (or System Settings on newer macOS)
+
+**Step 2: Navigate to Privacy & Security**
+• Click on "Security & Privacy" (or "Privacy & Security" on newer macOS)
+• Click on the "Privacy" tab
+• In the left sidebar, scroll down and click on "Full Disk Access"
+
+**Step 3: Add /bin/bash**
+• Click the lock icon at the bottom left and enter your password to make changes
+• Click the "+" button
+• Press Cmd + Shift + G (or Go → Go to Folder from the menu)
+• Type `/bin` and press Enter
+• Find and select `bash`
+• Click "Open"
+
+**Step 4: Also add these (optional but recommended):**
+• `/usr/sbin/cron` (for cron jobs)
+• `/usr/bin/python3` (if your script uses Python)
+
+### Why This Is Needed:
+- macOS requires Full Disk Access for cron jobs to function properly
+- Without these permissions, cron jobs may fail silently or not execute at all
+- This is a security feature in macOS to prevent unauthorized background processes
+
 ## Important Notes
 
 - The cron job will only run when your laptop is awake and running
